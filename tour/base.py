@@ -1,8 +1,4 @@
-from django.shortcuts import render
-from django.views import View
-from django.http import HttpResponse, Http404
 from random import randint
-
 title = "Stepik Travel"
 subtitle = "Для тех, кого отвлекают дома"
 description = "Лучшие направления, где никто не будет вам мешать сидеть на берегу и изучать программирование, дизайн, разработку игр и управление продуктами"
@@ -208,7 +204,7 @@ for departure, description in departures.items():
     nightsmin[departure] = 10000000000
     nightsmax[departure] = 0
 
-for id,tour in tours.items():
+for id, tour in tours.items():
     tourcount[tour['departure']] += 1
     if tour['price'] < pricemin[tour['departure']]:
         pricemin[tour['departure']] = tour['price']
@@ -219,48 +215,9 @@ for id,tour in tours.items():
     if tour['nights'] > nightsmax[tour['departure']]:
         nightsmax[tour['departure']] = tour['nights']
 for departure in tourcount:
-    if tourcount[departure] <2 and tourcount[departure] >0:
+    if tourcount[departure] < 2 and tourcount[departure] > 0:
         tourcount[departure] = str(tourcount[departure]) + " тур"
-    elif tourcount[departure] <5 and tourcount[departure] >1:
+    elif tourcount[departure] < 5 and tourcount[departure] > 1:
         tourcount[departure] = str(tourcount[departure]) + " тура"
-    else: tourcount[departure] = str(tourcount[departure]) + " туров"
-
-
-class MainView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'tours/index.html', context={'tours': tours.items(),
-                                                            'keysdep': departures.items(),
-                                                            'departures': departures,
-                                                            'random6' : random6,
-                                                            })
-        #return HttpResponse('templates/tours/index.html')
-
-
-class DepartureView(View):
-    def get(self, request, departure,  *args, **kwargs):
-        if departure not in departures:
-            raise Http404
-        return render(request, 'tours/departure.html', context={'tours': tours.items(),
-                                                                'from': departures[departure],
-                                                                'departure': departure,
-                                                                'departures': departures,
-                                                                'keysdep' : departures.items(),
-                                                                'tourcount' : tourcount[departure],
-                                                                'pricemin' : pricemin[departure],
-                                                                'pricemax' : pricemax[departure],
-                                                                'nightsmin': nightsmin[departure],
-                                                                'nightsmax': nightsmax[departure],
-                                                                })
-
-
-class TourView(View):
-    def get(self, request, nomer, *args, **kwargs):
-          if nomer not in range(1,17):
-              raise Http404
-          return render(request, 'tours/tour.html', context={'tours': tours[nomer],
-                                                             'departure': departures[tours[nomer]['departure']],
-                                                             'keysdep' : departures.items(),
-                                                             'departures': departures,
-
-                                                             })
-
+    else:
+        tourcount[departure] = str(tourcount[departure]) + " туров"

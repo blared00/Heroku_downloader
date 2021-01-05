@@ -204,7 +204,7 @@ for departure, description in departures.items():
     nightsmin[departure] = 10000000000
     nightsmax[departure] = 0
 
-for id,tour in tours.items():
+for id, tour in tours.items():
     tourcount[tour['departure']] += 1
     if tour['price'] < pricemin[tour['departure']]:
         pricemin[tour['departure']] = tour['price']
@@ -215,8 +215,9 @@ for id,tour in tours.items():
     if tour['nights'] > nightsmax[tour['departure']]:
         nightsmax[tour['departure']] = tour['nights']
 for departure in tourcount:
-    if tourcount[departure] <2 and tourcount[departure] >0:
+    if tourcount[departure] < 2 and tourcount[departure] > 0:
         tourcount[departure] = str(tourcount[departure]) + " тур"
-    elif tourcount[departure] <5 and tourcount[departure] >1:
+    elif tourcount[departure] < 5 and tourcount[departure] > 1:
         tourcount[departure] = str(tourcount[departure]) + " тура"
-    else: tourcount[departure] = str(tourcount[departure]) + " туров"
+    else:
+        tourcount[departure] = str(tourcount[departure]) + " туров"
