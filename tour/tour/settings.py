@@ -25,7 +25,7 @@ SECRET_KEY = '^u547btjv+vsc_js$$(h-(&abapy5@bap4-r5-oie1*z)q*z-v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
